@@ -1,0 +1,43 @@
+{
+  "cli": {
+    "version": ">= 5.9.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_FB_apiKey":"AIzaSyBcTS8ri021wuKEl9TTEh-hTn3dGB42-Mw",
+        "EXPO_PUBLIC_FB_authDomain":"ticketscan-dev.firebaseapp.com",
+        "EXPO_PUBLIC_FB_projectId":"ticketscan-dev",
+        "EXPO_PUBLIC_FB_storageBucket":"ticketscan-dev.appspot.com",
+        "EXPO_PUBLIC_FB_messagingSenderId":"457406718516",
+        "EXPO_PUBLIC_FB_appId":"1:457406718516:web:e571e2d883456146e46061",
+        "EXPO_PUBLIC_FB_measurementId":"G-SPV1K7T7GE"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android":{
+        "buildType":"apk"
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_FB_apiKey":"AIzaSyDlszimD_kJl3gvig5Kp9-sA-Iq7vapQ6U",
+        "EXPO_PUBLIC_FB_authDomain":"ticketscann.firebaseapp.com",
+        "EXPO_PUBLIC_FB_projectId":"ticketscann",
+        "EXPO_PUBLIC_FB_storageBucket":"ticketscann.appspot.com",
+        "EXPO_PUBLIC_FB_messagingSenderId":"425710992126",
+        "EXPO_PUBLIC_FB_appId":"1:425710992126:web:70107ad181ccb715eb43af",
+        "EXPO_PUBLIC_FB_measurementId":"G-LS6L4VJFCZ"
+      },
+      "android":{
+        "buildType":"apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
