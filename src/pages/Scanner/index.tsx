@@ -44,14 +44,14 @@ export function Scanner(): React.JSX.Element {
 
   if (hasPermission === null) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Esperando permisos</Text>
       </View>
     );
   }
   if (hasPermission === false) {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Sin acceso a la cámara</Text>
       </View>
     );
