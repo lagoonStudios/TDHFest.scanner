@@ -6,12 +6,15 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     height: "100%",
   },
-  formContainer: {},
+  formContainer: { margin: 32 },
   errorText: {
     color: Colors.red.default,
     marginTop: 5,
     marginLeft: 15,
     fontWeight: "600",
+  },
+  inputContainer: {
+    marginBottom: 16,
   },
   errorSpace: {
     height: 35,

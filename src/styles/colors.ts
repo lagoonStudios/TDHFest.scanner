@@ -3,7 +3,7 @@ export const Colors = Object.freeze({
   secondary: "",
   tertiary: "",
   transparent: "transparent",
-  background: "#EFFBF4",
+  background: "#85BCE5",
   white: { default: "#FFFFFF" },
   black: { default: "#000000" },
   green: {
@@ -16,9 +16,13 @@ export const Colors = Object.freeze({
   blue: {
     default: "#1760EC",
   },
-  red: { default: "#F00" },
+  red: { default: "#FF1F08" },
   gray: {
     default: "#0000004d",
     light: "#0000004d",
+  },
+  yellow: {
+    default: "#FFFF1D",
+    opacity: "#abab0a",
   },
 });

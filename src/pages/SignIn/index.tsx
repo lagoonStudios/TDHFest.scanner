@@ -13,6 +13,7 @@ import { AppLogo } from "@/components/atoms/AppLogo";
 import { ScrollView, Text, View } from "react-native";
 import { TextInput } from "@/components/atoms/TextInput";
 import { FooterLegend } from "@/components/atoms/FooterLegend";
+import { BackgroundImg } from "@/components/atoms/BackgroundImg";
 
 export function SignIn(): React.JSX.Element {
   // --- Hooks ----------------------------------------------------------------------------
@@ -43,52 +44,54 @@ export function SignIn(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.contentView}>
-        <AppLogo width={300} height={300} />
-        <FormProvider {...methods}>
-          <View style={styles.formContainer}>
-            <View>
-              <TextInput
-                name="email"
-                label="Correo electrónico"
-                inputMode="email"
-                rules={{
-                  required: "Email is required!",
-                  pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                }}
-                testID="email-input"
-              />
-              {!errors.email && <View style={styles.errorSpace}></View>}
-              {errors.email && errors.email.type === "required" && (
-                <Text style={styles.errorText}>Requerido</Text>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <Text style={styles.errorText}>Email Inválido</Text>
-              )}
-            </View>
+      <BackgroundImg>
+        <ScrollView contentContainerStyle={styles.contentView}>
+          <AppLogo width={300} height={300} />
+          <FormProvider {...methods}>
+            <View style={styles.formContainer}>
+              <View>
+                <TextInput
+                  name="email"
+                  label="Correo electrónico"
+                  inputMode="email"
+                  rules={{
+                    required: "Email is required!",
+                    pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                  }}
+                  testID="email-input"
+                />
+                {!errors.email && <View style={styles.errorSpace}></View>}
+                {errors.email && errors.email.type === "required" && (
+                  <Text style={styles.errorText}>Requerido</Text>
+                )}
+                {errors.email && errors.email.type === "pattern" && (
+                  <Text style={styles.errorText}>Email Inválido</Text>
+                )}
+              </View>
 
-            <View>
-              <TextInput
-                name="password"
-                label="Password"
-                secureTextEntry
-                rules={{ required: "Password is required!" }}
-                testID="password-input"
-              />
-              {!errors.password && <View style={styles.errorSpace}></View>}
-              {errors.password && errors.password.type === "required" && (
-                <Text style={styles.errorText}>Requerido</Text>
-              )}
+              <View>
+                <TextInput
+                  name="password"
+                  label="Password"
+                  secureTextEntry
+                  rules={{ required: "Password is required!" }}
+                  testID="password-input"
+                />
+                {!errors.password && <View style={styles.errorSpace}></View>}
+                {errors.password && errors.password.type === "required" && (
+                  <Text style={styles.errorText}>Requerido</Text>
+                )}
+              </View>
+              <Button
+                disabled={loginMutation.isLoading}
+                onPress={methods.handleSubmit(onSubmit)}
+                testID="submit-login">
+                Ingresar
+              </Button>
             </View>
-            <Button
-              disabled={loginMutation.isLoading}
-              onPress={methods.handleSubmit(onSubmit)}
-              testID="submit-login">
-              Ingresar
-            </Button>
-          </View>
-        </FormProvider>
-      </ScrollView>
+          </FormProvider>
+        </ScrollView>
+      </BackgroundImg>
       <FooterLegend />
     </View>
   );

@@ -5,6 +5,8 @@ import { BarCodeScanner, PermissionStatus } from "expo-barcode-scanner";
 import { View, Text } from "react-native";
 import { AppLogo } from "@/components/atoms/AppLogo";
 import { BackButton } from "@/components/atoms/BackButton";
+import { FooterLegend } from "@/components/atoms/FooterLegend";
+import { BackgroundImg } from "@/components/atoms/BackgroundImg";
 
 import { handleTicketUpdate } from "./Scanner.functions";
 
@@ -17,7 +19,12 @@ export function Scanner(): React.JSX.Element {
 
   const ticketMutation = useMutation(async (ticketId: string) => {
     setScanned(true);
-    handleTicketUpdate(ticketId).finally(() => setScanned(false));
+    handleTicketUpdate(ticketId)
+      .then(
+        (res) => setScanned(false),
+        (err) => setScanned(false)
+      )
+      .finally(() => !scanned ?? setScanned(false));
   });
   // --- END: Hooks -----------------------------------------------------------------------
 
@@ -52,15 +59,18 @@ export function Scanner(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <BackButton containerStyles={styles.backButton} />
-      <AppLogo height={100} width={100} />
+      <BackgroundImg>
+        <BackButton containerStyles={styles.backButton} />
+        <AppLogo height={100} width={100} />
 
-      {!scanned && (
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={styles.scanner}
-          barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}></BarCodeScanner>
-      )}
+        {!scanned && (
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={styles.scanner}
+            barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}></BarCodeScanner>
+        )}
+        <FooterLegend />
+      </BackgroundImg>
     </View>
   );
 }

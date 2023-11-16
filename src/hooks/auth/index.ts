@@ -71,8 +71,8 @@ export function logOut() {
 export function useAuthErrorMessage(message: string): string {
   //firebase errors docs https://firebase.google.com/docs/auth/admin/errors?hl=es-419
   const errorMessageMap: { [key: string]: string } = {
-    "invalid-email": "Email inválido",
-    "invalid-login-credentials": "Usuario o contraseña inválidos",
+    "invalid-email": "formato de Email incorrecto",
+    "invalid-login-credentials": "Usuario o contraseña incorrectos",
     "insufficient-permission": "No tienes permisos",
   };
   const defaultMessage = "Error de autenticación";

@@ -9,7 +9,6 @@ export function FooterLegend(props: FooterLegendProps) {
     <View style={styles.footer}>
       <View style={styles.container}>
         {children}
-        <Text style={styles.text}>© Ticketscan todos los derechos reservados 2023</Text>
         <Text style={styles.text}>Powered by Lagoon Studio</Text>
       </View>
     </View>

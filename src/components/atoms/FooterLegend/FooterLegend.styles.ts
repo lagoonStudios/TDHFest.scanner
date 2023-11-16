@@ -5,7 +5,7 @@ import { Colors } from "@/styles/colors";
 export const styles = StyleSheet.create({
   footer: {
     position: "absolute",
-    bottom: 0,
+    bottom: 16,
     width: "100%",
   },
   container: {
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: Colors.green.light,
+    color: Colors.white.default,
     textAlign: "center",
   },
 });

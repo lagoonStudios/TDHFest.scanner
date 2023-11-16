@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
-    padding: 16,
     backgroundColor: Colors.background,
   },
 });

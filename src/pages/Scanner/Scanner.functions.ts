@@ -8,29 +8,38 @@ import { Ticket } from "@/models/app.models";
 
 export const handleTicketUpdate = async (ticketId: string) => {
   return new Promise(async (resolve, reject) => {
-    const ticketRef = doc(collection(firestore, Collections.Tickets), ticketId);
-    const ticketDoc = await getDoc(ticketRef);
-    const ticket = ticketDoc.data() as Ticket;
-
-    if (Boolean(ticketDoc.exists())) {
-      if (ticket.attendance) {
-        Alert.alert("Info", `El ticket ya fué registrado - ${ticket.name || ""}`);
-        resolve(null);
+    if (typeof ticketId !== "string") {
+      Alert.alert("ERROR", "QR no reconocido");
+      reject(null);
+      return;
+    }
+    try {
+      const ticketRef = doc(collection(firestore, Collections.Tickets), ticketId);
+      const ticketDoc = await getDoc(ticketRef);
+      const ticket = ticketDoc.data() as Ticket;
+      if (Boolean(ticketDoc.exists())) {
+        if (ticket.attendance) {
+          Alert.alert("Info", `El ticket ya fué registrado - ${ticket.name || ""}`);
+          resolve(null);
+        } else {
+          updateDoc(ticketRef, { attendance: true }).then(
+            async () => {
+              Alert.alert("Exitoso", "Registro exitoso");
+              resolve(null);
+            },
+            (err) => {
+              const message = handleFirebaseErrorMessage(err.code || "");
+              Alert.alert("ERROR", message);
+              reject(err);
+            }
+          );
+        }
       } else {
-        updateDoc(ticketRef, { attendance: true }).then(
-          async () => {
-            Alert.alert("Exitoso", "Registro exitoso");
-            resolve(null);
-          },
-          (err) => {
-            const message = handleFirebaseErrorMessage(err.code || "");
-            Alert.alert("ERROR", message);
-            reject(err);
-          }
-        );
+        Alert.alert("ERROR", "Registro no existente");
+        reject(null);
       }
-    } else {
-      Alert.alert("ERROR", "Registro no existente");
+    } catch (error) {
+      Alert.alert("ERROR", "Ocurrió un error");
       reject(null);
     }
   });
