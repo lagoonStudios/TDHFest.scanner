@@ -6,6 +6,9 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "EXPO_PUBLIC_FB_apiKey":"AIzaSyBcTS8ri021wuKEl9TTEh-hTn3dGB42-Mw",
         "EXPO_PUBLIC_FB_authDomain":"ticketscan-dev.firebaseapp.com",
@@ -16,13 +19,10 @@
         "EXPO_PUBLIC_FB_measurementId":"G-SPV1K7T7GE"
       }
     },
-    "preview": {
-      "distribution": "internal",
-      "android":{
-        "buildType":"apk"
-      }
-    },
     "production": {
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "EXPO_PUBLIC_FB_apiKey":"AIzaSyDlszimD_kJl3gvig5Kp9-sA-Iq7vapQ6U",
         "EXPO_PUBLIC_FB_authDomain":"ticketscann.firebaseapp.com",
