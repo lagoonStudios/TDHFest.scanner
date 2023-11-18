@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   modalContent: {
-    height: 250,
+    height: "auto",
     width: "80%",
     backgroundColor: Colors.white.default,
     borderRadius: 10,
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   title: {
-    color: Colors.red.default,
+    color: Colors.green.default,
     fontSize: 32,
     fontWeight: "900",
   },
@@ -34,15 +34,25 @@ export const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 24,
+    textAlign: "center",
+  },
+  ticketText: {
+    paddingHorizontal: 16,
+    fontSize: 16,
+    textAlign: "center",
+  },
+  textBold: {
+    fontWeight: "bold",
   },
   button: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.red.default,
+    backgroundColor: Colors.green.default,
     width: 140,
     height: 46,
     borderRadius: 8,
+    marginBottom: 25,
   },
   buttonText: {
     color: Colors.white.default,

@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
-    height: "100%",
+    flex: 1,
+    marginTop: 10
   },
   formContainer: { margin: 32 },
   errorText: {

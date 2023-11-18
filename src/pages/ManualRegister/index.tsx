@@ -1,4 +1,5 @@
-import { View, Text, Alert } from "react-native";
+import { useState } from "react";
+import { View, Text } from "react-native";
 import { useMutation } from "@tanstack/react-query";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
@@ -12,16 +13,32 @@ import { FooterLegend } from "@/components/atoms/FooterLegend";
 import { BackgroundImg } from "@/components/atoms/BackgroundImg";
 
 import { styles } from "./ManualRegister.styles";
+import { ErrorModal } from "@/components/atoms/ErrorModal";
+import { SuccessModal } from "@/components/atoms/SuccessModal";
 
 export function ManualRegister(): React.JSX.Element {
   // --- Hooks ----------------------------------------------------------------------------
   const { ...methods } = useForm({ defaultValues: { document: "" } });
 
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const [ticketData, setTicketData] = useState({ name: "", type: "Regular" });
+
   const registerMutation = useMutation(
-    (data: { document: string }) => manualRegister(data.document),
+    (data: { document: string }) =>
+      manualRegister(data.document).then(({ message, type, name }) => {
+        setTicketData({ name, type });
+        setSuccessMsg(message);
+        setShowSuccess(true);
+      }),
     {
       onError: ({ message, type }: { message: string; type: string }) => {
-        Alert.alert(type, message);
+        setErrorMsg(message);
+        setShowError(true);
       },
     }
   );
@@ -38,7 +55,7 @@ export function ManualRegister(): React.JSX.Element {
   return (
     // --- END: Data and handlers ----------------------------------------------------------
     <BackgroundImg>
-      <View>
+      <View style={styles.container}>
         <BackButton containerStyles={styles.backButton} />
         <AppLogo width={300} height={300} />
         <FormProvider {...methods}>
@@ -73,6 +90,14 @@ export function ManualRegister(): React.JSX.Element {
           </View>
         </FormProvider>
         <FooterLegend />
+        <ErrorModal isVisible={showError} setIsVisible={setShowError} infoText={errorMsg} />
+        <SuccessModal
+          isVisible={showSuccess}
+          setIsVisible={setShowSuccess}
+          infoText={successMsg}
+          name={ticketData.name}
+          type={ticketData.type}
+        />
       </View>
     </BackgroundImg>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 
 import { Button } from "@/components/atoms/Button";
@@ -8,7 +8,6 @@ import { FooterLegend } from "@/components/atoms/FooterLegend";
 
 import { styles } from "./Home.styles";
 import { BackgroundImg } from "@/components/atoms/BackgroundImg";
-import { ErrorModal } from "@/components/atoms/ErrorModal";
 
 export function Home({ navigation }: any): React.JSX.Element {
   // --- Hooks ----------------------------------------------------------------------------
