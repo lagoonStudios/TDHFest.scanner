@@ -35,10 +35,10 @@ export function ManualRegister(): React.JSX.Element {
   const onSubmit: SubmitHandler<any> = (data) => {
     registerMutation.mutate(data);
   };
-  // --- END: Data and handlers ----------------------------------------------------------
   return (
-    <View style={styles.container}>
-      <BackgroundImg>
+    // --- END: Data and handlers ----------------------------------------------------------
+    <BackgroundImg>
+      <View>
         <BackButton containerStyles={styles.backButton} />
         <AppLogo width={300} height={300} />
         <FormProvider {...methods}>
@@ -72,8 +72,8 @@ export function ManualRegister(): React.JSX.Element {
             </Button>
           </View>
         </FormProvider>
-      </BackgroundImg>
-      <FooterLegend />
-    </View>
+        <FooterLegend />
+      </View>
+    </BackgroundImg>
   );
 }

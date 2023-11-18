@@ -43,7 +43,7 @@ export function SignIn(): React.JSX.Element {
   // --- END: Data and handlers ----------------------------------------------------------
 
   return (
-    <View style={styles.container}>
+    <View>
       <BackgroundImg>
         <ScrollView contentContainerStyle={styles.contentView}>
           <AppLogo width={300} height={300} />

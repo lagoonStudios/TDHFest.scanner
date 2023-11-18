@@ -1,6 +1,6 @@
 import { ImageBackground, StyleSheet } from "react-native";
 
-export function BackgroundImg({ children }: { children: any }): React.JSX.Element {
+export function BackgroundImg({ children }: { children: React.JSX.Element }): React.JSX.Element {
   return (
     <ImageBackground
       source={require("@/assets/background.png")}

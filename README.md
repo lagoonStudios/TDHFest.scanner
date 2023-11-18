@@ -18,5 +18,5 @@ contais the folder structure for a medium size application as:
 
 When adding variables in the .env file, you need to declare the variables types in ./src/types/ev.d.ts to work with typescript.
 
-To obtain the firebase's config follow this documentation and set it as a JSON's string in the .env file with the name 'REACT_APP_FIREBASE_CONFIG'.
+To obtain the firebase's config follow this documentation and set it in the .env.example file's formate
 https://support.google.com/firebase/answer/7015592?hl=es#zippy=%2Cen-este-art%C3%ADculo
