@@ -3,8 +3,12 @@ import { ModalProps } from "./ErrorModal.constants";
 import { styles } from "./ErrorModal.styles";
 
 export function ErrorModal(props: ModalProps): React.JSX.Element {
-  const { isVisible, setIsVisible, infoText, ...modalProps } = props;
+  const { isVisible, setIsVisible, onClose, infoText, ...modalProps } = props;
 
+  const handleClose = () => {
+    onClose();
+    setIsVisible(false);
+  };
   return (
     <Modal animationType="slide" transparent={true} {...modalProps} visible={isVisible}>
       <View style={styles.modalContent}>
@@ -16,7 +20,7 @@ export function ErrorModal(props: ModalProps): React.JSX.Element {
             <Text style={styles.infoText}>{infoText ? infoText : " Ocurrió un error"}</Text>
           </View>
           <View>
-            <Pressable onPress={() => setIsVisible(false)} style={styles.button}>
+            <Pressable onPress={handleClose} style={styles.button}>
               <Text style={styles.buttonText}>Cerrar</Text>
             </Pressable>
           </View>

@@ -21,7 +21,6 @@ export const TextInput = (props: TextInputProps): React.JSX.Element | undefined 
       const msg = !formContext
         ? "TextInput must be wrapped by the FormProvider"
         : "TextInput Name must be defined";
-      console.error(msg);
       setHasError(true);
     }
   }, []);

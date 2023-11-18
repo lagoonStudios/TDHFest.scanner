@@ -3,7 +3,12 @@ import { styles } from "./SuccessModal.styles";
 import { ModalProps } from "./SuccessModal.constants";
 
 export function SuccessModal(props: ModalProps): React.JSX.Element {
-  const { isVisible, setIsVisible, infoText, name, type, ...modalProps } = props;
+  const { isVisible, setIsVisible, onClose, infoText, name, type, ...modalProps } = props;
+  const handleClose = () => {
+    onClose();
+    setIsVisible(false);
+  };
+
   return (
     <Modal animationType="slide" transparent={true} {...modalProps} visible={isVisible}>
       <View style={styles.modalContent}>
@@ -23,7 +28,7 @@ export function SuccessModal(props: ModalProps): React.JSX.Element {
             </Text>
           </View>
           <View>
-            <Pressable onPress={() => setIsVisible(false)} style={styles.button}>
+            <Pressable onPress={handleClose} style={styles.button}>
               <Text style={styles.buttonText}>Cerrar</Text>
             </Pressable>
           </View>

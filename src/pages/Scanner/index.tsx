@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
+import React, { useState, useEffect, useContext } from "react";
 import { BarCodeScanner, PermissionStatus } from "expo-barcode-scanner";
 
 import { View, Text } from "react-native";
@@ -11,20 +11,41 @@ import { BackgroundImg } from "@/components/atoms/BackgroundImg";
 import { handleTicketUpdate } from "./Scanner.functions";
 
 import { styles } from "./Scanner.styles";
+import { TicketTypeContext } from "@/context/TicketType.context";
+import { SuccessModal } from "@/components/atoms/SuccessModal";
+import { ErrorModal } from "@/components/atoms/ErrorModal";
+import { useAuthentication } from "@/hooks/auth";
 
 export function Scanner(): React.JSX.Element {
   // --- Hooks ----------------------------------------------------------------------------
+  const ticketTypes = useContext(TicketTypeContext);
+
+  const { user } = useAuthentication();
+
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
 
+  const [ticketData, setTicketData] = useState({ name: "", type: "Regular" });
+
   const ticketMutation = useMutation(async (ticketId: string) => {
     setScanned(true);
-    handleTicketUpdate(ticketId)
-      .then(
-        (res) => setScanned(false),
-        (err) => setScanned(false)
-      )
-      .finally(() => !scanned ?? setScanned(false));
+    handleTicketUpdate(ticketId, ticketTypes, user?.uid || "").then(
+      ({ message, name, type }) => {
+        setTicketData({ name, type });
+        setSuccessMsg(message);
+        setShowSuccess(true);
+      },
+      ({ message }) => {
+        setErrorMsg(message);
+        setShowError(true);
+      }
+    );
   });
   // --- END: Hooks -----------------------------------------------------------------------
 
@@ -40,6 +61,9 @@ export function Scanner(): React.JSX.Element {
 
   // --- Data and handlers ----------------------------------------------------------------
   const handleBarCodeScanned = ({ data }: { data: string }) => ticketMutation.mutate(data);
+  const onCloseModal = () => {
+    setScanned(false);
+  };
   // --- END: Data and handlers ----------------------------------------------------------
 
   if (hasPermission === null) {
@@ -58,8 +82,8 @@ export function Scanner(): React.JSX.Element {
   }
 
   return (
-    <View style={styles.container}>
-      <BackgroundImg>
+    <BackgroundImg>
+      <View style={styles.container}>
         <BackButton containerStyles={styles.backButton} />
         <AppLogo height={100} width={100} />
 
@@ -70,7 +94,21 @@ export function Scanner(): React.JSX.Element {
             barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}></BarCodeScanner>
         )}
         <FooterLegend />
-      </BackgroundImg>
-    </View>
+        <ErrorModal
+          isVisible={showError}
+          setIsVisible={setShowError}
+          onClose={onCloseModal}
+          infoText={errorMsg}
+        />
+        <SuccessModal
+          isVisible={showSuccess}
+          setIsVisible={setShowSuccess}
+          onClose={onCloseModal}
+          infoText={successMsg}
+          name={ticketData.name}
+          type={ticketData.type}
+        />
+      </View>
+    </BackgroundImg>
   );
 }

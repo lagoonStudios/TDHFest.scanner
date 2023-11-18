@@ -3,10 +3,12 @@ import { query, collection, where, getDocs, updateDoc } from "firebase/firestore
 import { Collections } from "@/lib/firebase/functions";
 import { firestore } from "@/lib/firebase/firebaseConfig";
 
-import { Ticket } from "@/models/app.models";
+import { Ticket, TicketType } from "@/models/app.models";
 
 export function manualRegister(
-  document: string
+  document: string,
+  ticketTypes: TicketType[],
+  scannerId: string
 ): Promise<{ message: string; name: string; type: string }> {
   return new Promise(async (resolve, reject) => {
     const ticketsRef = collection(firestore, Collections.Tickets);
@@ -19,7 +21,11 @@ export function manualRegister(
         updateDoc(docsRef[0].ref, { attendance: true }).then(
           () => {
             // Alert.alert("Exitoso", "Registro exitoso");
-            resolve({ message: "Registro exitoso", name: "Leo", type: "VIP" });
+            resolve({
+              message: "Registro exitoso",
+              name: ticket.name,
+              type: getTicketType(ticketTypes, ticket.ticketTypeId),
+            });
           },
           (error) => {
             reject({ message: "Error al registrar", type: "Error" });
@@ -32,4 +38,9 @@ export function manualRegister(
       reject({ message: "Registro no existente", type: "Error" });
     }
   });
+}
+
+function getTicketType(ticketTypes: TicketType[], id: string) {
+  const type = ticketTypes.find((type) => type.id === id)?.label || "";
+  return type;
 }

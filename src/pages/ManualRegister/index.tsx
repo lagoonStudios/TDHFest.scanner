@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text } from "react-native";
 import { useMutation } from "@tanstack/react-query";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+
+import { TicketTypeContext } from "@/context/TicketType.context";
 
 import { manualRegister } from "./ManualRegister.functions";
 
@@ -15,9 +17,14 @@ import { BackgroundImg } from "@/components/atoms/BackgroundImg";
 import { styles } from "./ManualRegister.styles";
 import { ErrorModal } from "@/components/atoms/ErrorModal";
 import { SuccessModal } from "@/components/atoms/SuccessModal";
+import { useAuthentication } from "@/hooks/auth";
 
 export function ManualRegister(): React.JSX.Element {
   // --- Hooks ----------------------------------------------------------------------------
+  const { user } = useAuthentication();
+
+  const ticketTypes = useContext(TicketTypeContext);
+
   const { ...methods } = useForm({ defaultValues: { document: "" } });
 
   const [showError, setShowError] = useState(false);
@@ -30,11 +37,14 @@ export function ManualRegister(): React.JSX.Element {
 
   const registerMutation = useMutation(
     (data: { document: string }) =>
-      manualRegister(data.document).then(({ message, type, name }) => {
-        setTicketData({ name, type });
-        setSuccessMsg(message);
-        setShowSuccess(true);
-      }),
+      manualRegister(data.document, ticketTypes, user?.uid || "").then(
+        ({ message, type, name }) => {
+          setTicketData({ name, type });
+          setSuccessMsg(message);
+          setShowSuccess(true);
+          methods.setValue("document", "");
+        }
+      ),
     {
       onError: ({ message, type }: { message: string; type: string }) => {
         setErrorMsg(message);
@@ -90,10 +100,16 @@ export function ManualRegister(): React.JSX.Element {
           </View>
         </FormProvider>
         <FooterLegend />
-        <ErrorModal isVisible={showError} setIsVisible={setShowError} infoText={errorMsg} />
+        <ErrorModal
+          isVisible={showError}
+          setIsVisible={setShowError}
+          onClose={() => {}}
+          infoText={errorMsg}
+        />
         <SuccessModal
           isVisible={showSuccess}
           setIsVisible={setShowSuccess}
+          onClose={() => {}}
           infoText={successMsg}
           name={ticketData.name}
           type={ticketData.type}

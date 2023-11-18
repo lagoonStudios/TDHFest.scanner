@@ -1,7 +1,11 @@
 export enum Collections {
   Users = "Users",
   Tickets = "Tickets",
+  TicketTypes = "TicketTypes",
+  Events_PaymentTypes = "Events_PaymentTypes",
 }
+
+export const eventId = "id6jrKAOPHWG0RBkTAfa";
 
 export const handleFirebaseErrorMessage = (errorCode: string) => {
   const errorMessageMap: { [key: string]: string } = {
