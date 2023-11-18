@@ -31,9 +31,6 @@
         "EXPO_PUBLIC_FB_messagingSenderId":"425710992126",
         "EXPO_PUBLIC_FB_appId":"1:425710992126:web:70107ad181ccb715eb43af",
         "EXPO_PUBLIC_FB_measurementId":"G-LS6L4VJFCZ"
-      },
-      "android":{
-        "buildType":"apk"
       }
     }
   },
