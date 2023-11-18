@@ -7,7 +7,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
       },
       "env": {
         "EXPO_PUBLIC_FB_apiKey":"AIzaSyBcTS8ri021wuKEl9TTEh-hTn3dGB42-Mw",
@@ -20,8 +21,10 @@
       }
     },
     "production": {
+      "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
       },
       "env": {
         "EXPO_PUBLIC_FB_apiKey":"AIzaSyDlszimD_kJl3gvig5Kp9-sA-Iq7vapQ6U",
