@@ -28,8 +28,8 @@ export function ErrorModal(props: ModalProps): React.JSX.Element {
           <View style={styles.textContainer}>
             <Text style={styles.infoText}>{infoText ? infoText : " Ocurrió un error"}</Text>
             {type && (
-              <Text style={styles.ticketText}>
-                <Text style={styles.textBold}>Tipo: </Text>
+              <Text style={styles.subtitleText}>
+                <Text style={styles.textBold}>Tipo de entrada: </Text>
                 <Text>{type}</Text>
               </Text>
             )}

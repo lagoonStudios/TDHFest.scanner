@@ -55,6 +55,11 @@ export const styles = StyleSheet.create({
   },
   ticketText: {
     paddingHorizontal: 16,
+    fontSize: 16,
+    textAlign: "center",
+  },
+  subtitleText: {
+    paddingHorizontal: 16,
     fontSize: 18,
     textAlign: "center",
   },
