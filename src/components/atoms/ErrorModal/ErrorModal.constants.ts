@@ -5,4 +5,7 @@ export interface ModalProps extends RNModalProps {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   onClose: () => void;
   infoText: string;
+  name: string;
+  identificationDoc: string;
+  type: string;
 }

@@ -35,7 +35,8 @@ yarn-error.*
 *.tsbuildinfo
 
 # env variables
-
+.env.production
+.env.development
 
 #npm and yarn lock files
 yarn.lock

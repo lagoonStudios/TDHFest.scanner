@@ -32,6 +32,11 @@ export const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
   },
+  textContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 5,
+  },
   infoText: {
     fontSize: 24,
     textAlign: "center",
@@ -58,5 +63,10 @@ export const styles = StyleSheet.create({
     color: Colors.white.default,
     fontSize: 16,
     fontWeight: "500",
+  },
+  ticketSubtitle: {
+    paddingHorizontal: 16,
+    fontSize: 20,
+    textAlign: "center",
   },
 });

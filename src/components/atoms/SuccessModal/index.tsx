@@ -3,7 +3,16 @@ import { styles } from "./SuccessModal.styles";
 import { ModalProps } from "./SuccessModal.constants";
 
 export function SuccessModal(props: ModalProps): React.JSX.Element {
-  const { isVisible, setIsVisible, onClose, infoText, name, type, ...modalProps } = props;
+  const {
+    isVisible,
+    setIsVisible,
+    onClose,
+    infoText,
+    name,
+    type,
+    identificationDoc,
+    ...modalProps
+  } = props;
   const handleClose = () => {
     onClose();
     setIsVisible(false);
@@ -16,15 +25,19 @@ export function SuccessModal(props: ModalProps): React.JSX.Element {
           <Text style={styles.title}>Exitoso</Text>
         </View>
         <View style={styles.contentContainer}>
-          <View>
+          <View style={styles.textContainer}>
             <Text style={styles.infoText}>{infoText}</Text>
-            <Text style={styles.ticketText}>
-              <Text style={styles.textBold}>Tipo de entrada:</Text>
+            <Text style={styles.ticketSubtitle}>
+              <Text style={styles.textBold}>Tipo de entrada: </Text>
               <Text>{type}</Text>
             </Text>
             <Text style={styles.ticketText}>
               <Text style={styles.textBold}>Nombre: </Text>
               <Text>{name}</Text>
+            </Text>
+            <Text style={styles.ticketText}>
+              <Text style={styles.textBold}>Doc. de identidad: </Text>
+              <Text>{identificationDoc}</Text>
             </Text>
           </View>
           <View>

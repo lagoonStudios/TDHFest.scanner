@@ -9,10 +9,10 @@ export const handleTicketUpdate = async (
   ticketId: string,
   ticketTypes: TicketType[],
   scannerId: string
-): Promise<{ message: string; name: string; type: string }> => {
+): Promise<{ message: string; name: string; type: string; identificationDoc: string }> => {
   return new Promise(async (resolve, reject) => {
     if (typeof ticketId !== "string") {
-      reject({ message: "QR no reconocido", type: "Error" });
+      reject({ message: "QR no reconocido" });
       return;
     }
     try {
@@ -21,7 +21,12 @@ export const handleTicketUpdate = async (
       const ticket = ticketDoc.data() as Ticket;
       if (Boolean(ticketDoc.exists())) {
         if (ticket.attendance) {
-          reject({ message: "El ticket ya fué registrado", type: "Info" });
+          reject({
+            message: "El ticket ya fué registrado",
+            type: getTicketType(ticketTypes, ticket.ticketTypeId),
+            name: ticket.name,
+            identificationDoc: ticket.identificationDoc,
+          });
           // Alert.alert("Info", `El ticket ya fué registrado - ${ticket.name || ""}`);
           // resolve(null);
         } else {
@@ -31,20 +36,21 @@ export const handleTicketUpdate = async (
                 message: "Registro exitoso",
                 name: ticket.name,
                 type: getTicketType(ticketTypes, ticket.ticketTypeId),
+                identificationDoc: ticket.identificationDoc,
               });
             },
             (err) => {
               const message = handleFirebaseErrorMessage(err.code || "");
-              reject({ message, type: "Error" });
+              reject({ message });
             }
           );
         }
       } else {
-        reject({ message: "Registro no existente", type: "Error" });
+        reject({ message: "Registro no existente" });
       }
     } catch (error: any) {
       const message = handleFirebaseErrorMessage(error.code || "");
-      reject({ message, type: "Error" });
+      reject({ message });
     }
   });
 };

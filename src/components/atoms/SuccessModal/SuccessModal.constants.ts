@@ -7,4 +7,5 @@ export interface ModalProps extends RNModalProps {
   infoText: string;
   name: string;
   type: string;
+  identificationDoc: string;
 }
