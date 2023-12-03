@@ -9,7 +9,7 @@ export function manualRegister(
   document: string,
   ticketTypes: TicketType[],
   scannerId: string
-): Promise<{ message: string; name: string; type: string }> {
+): Promise<{ message: string; name: string; type: string; identificationDoc: string }> {
   return new Promise(async (resolve, reject) => {
     const ticketsRef = collection(firestore, Collections.Tickets);
     const q = query(ticketsRef, where("identificationDoc", "==", document));
@@ -18,24 +18,30 @@ export function manualRegister(
     if (docsRef[0]) {
       let ticket = docsRef[0].data() as Ticket;
       if (!ticket.attendance) {
-        updateDoc(docsRef[0].ref, { attendance: true }).then(
+        updateDoc(docsRef[0].ref, { attendance: true, scannerId }).then(
           () => {
             // Alert.alert("Exitoso", "Registro exitoso");
             resolve({
               message: "Registro exitoso",
               name: ticket.name,
               type: getTicketType(ticketTypes, ticket.ticketTypeId),
+              identificationDoc: ticket.identificationDoc,
             });
           },
           (error) => {
-            reject({ message: "Error al registrar", type: "Error" });
+            reject({ message: "Error al registrar" });
           }
         );
       } else {
-        reject({ message: "El ticket ya fué registrado", type: "Info" });
+        reject({
+          message: "El ticket ya fué registrado",
+          type: getTicketType(ticketTypes, ticket.ticketTypeId),
+          name: ticket.name,
+          identificationDoc: ticket.identificationDoc,
+        });
       }
     } else {
-      reject({ message: "Registro no existente", type: "Error" });
+      reject({ message: "Registro no existente" });
     }
   });
 }

@@ -33,20 +33,35 @@ export function ManualRegister(): React.JSX.Element {
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
 
-  const [ticketData, setTicketData] = useState({ name: "", type: "Regular" });
+  const [ticketData, setTicketData] = useState({
+    name: "",
+    type: "Regular",
+    identificationDoc: "",
+  });
 
   const registerMutation = useMutation(
     (data: { document: string }) =>
       manualRegister(data.document, ticketTypes, user?.uid || "").then(
-        ({ message, type, name }) => {
-          setTicketData({ name, type });
+        ({ message, type, name, identificationDoc }) => {
+          setTicketData({ name, type, identificationDoc });
           setSuccessMsg(message);
           setShowSuccess(true);
           methods.setValue("document", "");
         }
       ),
     {
-      onError: ({ message, type }: { message: string; type: string }) => {
+      onError: ({
+        message,
+        type,
+        name,
+        identificationDoc,
+      }: {
+        message: string;
+        type: string;
+        name: string;
+        identificationDoc: string;
+      }) => {
+        setTicketData({ name, type, identificationDoc });
         setErrorMsg(message);
         setShowError(true);
       },
@@ -105,6 +120,9 @@ export function ManualRegister(): React.JSX.Element {
           setIsVisible={setShowError}
           onClose={() => {}}
           infoText={errorMsg}
+          name={ticketData.name}
+          identificationDoc={ticketData.identificationDoc}
+          type={ticketData.type}
         />
         <SuccessModal
           isVisible={showSuccess}
@@ -113,6 +131,7 @@ export function ManualRegister(): React.JSX.Element {
           infoText={successMsg}
           name={ticketData.name}
           type={ticketData.type}
+          identificationDoc={ticketData.identificationDoc}
         />
       </View>
     </BackgroundImg>

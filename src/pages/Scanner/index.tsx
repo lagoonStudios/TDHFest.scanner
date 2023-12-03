@@ -31,17 +31,22 @@ export function Scanner(): React.JSX.Element {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
 
-  const [ticketData, setTicketData] = useState({ name: "", type: "Regular" });
+  const [ticketData, setTicketData] = useState({
+    name: "",
+    type: "Regular",
+    identificationDoc: "",
+  });
 
   const ticketMutation = useMutation(async (ticketId: string) => {
     setScanned(true);
     handleTicketUpdate(ticketId, ticketTypes, user?.uid || "").then(
-      ({ message, name, type }) => {
-        setTicketData({ name, type });
+      ({ message, name, type, identificationDoc }) => {
+        setTicketData({ name, type, identificationDoc });
         setSuccessMsg(message);
         setShowSuccess(true);
       },
-      ({ message }) => {
+      ({ message, name, type, identificationDoc }) => {
+        setTicketData({ name, type, identificationDoc });
         setErrorMsg(message);
         setShowError(true);
       }
@@ -99,6 +104,9 @@ export function Scanner(): React.JSX.Element {
           setIsVisible={setShowError}
           onClose={onCloseModal}
           infoText={errorMsg}
+          type={ticketData.type}
+          name={ticketData.name}
+          identificationDoc={ticketData.identificationDoc}
         />
         <SuccessModal
           isVisible={showSuccess}
@@ -107,6 +115,7 @@ export function Scanner(): React.JSX.Element {
           infoText={successMsg}
           name={ticketData.name}
           type={ticketData.type}
+          identificationDoc={ticketData.identificationDoc}
         />
       </View>
     </BackgroundImg>

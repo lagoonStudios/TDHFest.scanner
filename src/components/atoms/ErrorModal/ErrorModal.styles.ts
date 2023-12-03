@@ -3,13 +3,13 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   modalContent: {
-    height: 250,
     width: "80%",
     backgroundColor: Colors.white.default,
     borderRadius: 10,
     position: "absolute",
     right: "10%",
     top: "35%",
+    paddingHorizontal: 16,
     paddingVertical: 25,
   },
   titleContainer: {
@@ -43,10 +43,24 @@ export const styles = StyleSheet.create({
     width: 140,
     height: 46,
     borderRadius: 8,
+    marginBottom: 16,
   },
   buttonText: {
     color: Colors.white.default,
     fontSize: 16,
     fontWeight: "500",
+  },
+  textBold: {
+    fontWeight: "bold",
+  },
+  ticketText: {
+    paddingHorizontal: 16,
+    fontSize: 18,
+    textAlign: "center",
+  },
+  textContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
   },
 });
