@@ -44,3 +44,5 @@ package-lock.json
 
 #tests
 coverage/**/*
+
+eas.json

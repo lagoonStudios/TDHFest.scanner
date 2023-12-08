@@ -13,7 +13,8 @@
     "test": "jest --watch --coverage=false --changedSince=origin/main",
     "testDebug": "jest -o --watch --coverage=false",
     "testFinal": "jest",
-    "updateSnapshots": "jest -u --coverage=false"
+    "updateSnapshots": "jest -u --coverage=false",
+    "deploy":"eas build -p android --profile production"
   },
   "dependencies": {
     "@expo/webpack-config": "19.0.0",
